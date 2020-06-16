@@ -17,7 +17,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import PropTypes from 'prop-types';
 
-const drawerWidth = 240;
+const drawerWidth = 260;
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -203,7 +203,7 @@ const NavBar = (props) => {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            InternetBanking - Emoloyee
+            InternetBanking - Employee
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>

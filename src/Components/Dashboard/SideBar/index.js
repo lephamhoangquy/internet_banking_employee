@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { Routes } from '../../../Routes/SideBarRoutes';
 
-const drawerWidth = 240;
+const drawerWidth = 260;
 
 const useStyles = makeStyles((theme) => ({
   drawer: {

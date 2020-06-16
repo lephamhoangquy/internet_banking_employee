@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import LoginForm from '../../Components/LoginForm';
-import { loginEmployee } from '../../Actions/User';
+import { loginEmployee } from '../../Actions';
 
 const Login = ({ login, user }) => {
   const submit = (values) => {

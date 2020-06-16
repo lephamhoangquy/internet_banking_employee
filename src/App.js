@@ -14,7 +14,11 @@ const App = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/" render={() => <Redirect to="/dashboard" />} exact />
+        <Route
+          path="/"
+          render={() => <Redirect to="/dashboard/add-customer" />}
+          exact
+        />
         <LoginRoute path="/login" component={Login} exact />
         <PrivateRoute path="/dashboard" exact={false} component={Dashboard} />
         <Route path="*">
