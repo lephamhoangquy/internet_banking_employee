@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { reset, SubmissionError } from 'redux-form';
 import AddCustomerForm from './form';
-import { createCustomer } from '../../../Actions';
+import { createCustomer, updateStateCustomer } from '../../../Actions';
 
-const Register = ({ addCustomer, customer, resetForm }) => {
+const Register = ({ addCustomer, customer, resetForm, updateState }) => {
   const submit = (values) => {
     const { password, phone, fullname, address } = values;
     if (password.length < 8) {
@@ -29,9 +29,11 @@ const Register = ({ addCustomer, customer, resetForm }) => {
     if (customer.isRegister === true) {
       alert('Thêm thành công');
       resetForm('addCustomer');
+      updateState();
     } else if (customer.isRegister === false) {
       alert('Thêm thất bại email đã được sử dụng');
       resetForm('addCustomer');
+      updateState();
     }
   });
 
@@ -56,6 +58,9 @@ const mapDispatchToProps = (dispatch) => {
     resetForm: (name) => {
       dispatch(reset(name));
     },
+    updateState: () => {
+      dispatch(updateStateCustomer());
+    },
   };
 };
 
@@ -63,6 +68,7 @@ Register.propTypes = {
   addCustomer: PropTypes.func,
   customer: PropTypes.instanceOf(Object),
   resetForm: PropTypes.func,
+  updateState: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);

@@ -1,4 +1,8 @@
-import { CREATE_CUSTOMER_FAILED, CREATE_CUSTOMER_SUCCESS } from '../Constants';
+import {
+  CREATE_CUSTOMER_FAILED,
+  CREATE_CUSTOMER_SUCCESS,
+  UPDATE_STATE_CUSTOMER,
+} from '../Constants';
 
 const customer = (state = {}, action) => {
   switch (action.type) {
@@ -6,6 +10,8 @@ const customer = (state = {}, action) => {
       return { isRegister: true };
     case CREATE_CUSTOMER_FAILED:
       return { isRegister: false };
+    case UPDATE_STATE_CUSTOMER:
+      return {};
     default:
       return state;
   }

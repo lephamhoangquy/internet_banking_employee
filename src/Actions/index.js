@@ -4,6 +4,7 @@ import {
   USER,
   CREATE_CUSTOMER_SUCCESS,
   CREATE_CUSTOMER_FAILED,
+  UPDATE_STATE_CUSTOMER,
 } from '../Constants';
 import { login, addCustomer } from '../Services';
 
@@ -58,3 +59,7 @@ export const createCustomer = (body) => {
     };
   }
 };
+
+export const updateStateCustomer = () => ({
+  type: UPDATE_STATE_CUSTOMER,
+});
