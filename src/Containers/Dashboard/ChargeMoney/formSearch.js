@@ -22,10 +22,6 @@ const styles = {
     textAlign: 'center',
     marginTop: 17,
   },
-  content: {
-    marginTop: 30,
-    padding: 20,
-  },
 };
 
 let searchForm = ({ handleSubmit, classes }) => {
@@ -50,7 +46,6 @@ let searchForm = ({ handleSubmit, classes }) => {
           </div>
         </form>
       </Paper>
-      <Paper className={classes.content}>xxxxxxxxxxxxx</Paper>
     </Container>
   );
 };

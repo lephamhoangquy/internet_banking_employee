@@ -1,7 +1,12 @@
+/* eslint-disable no-param-reassign */
+import _ from 'lodash';
 import {
   CREATE_CUSTOMER_FAILED,
   CREATE_CUSTOMER_SUCCESS,
   UPDATE_STATE_CUSTOMER,
+  FIND_CUSTOMER_SUCCESS,
+  FIND_CUSTOMER_FAILED,
+  CHARGE_MONEY_SUCCESS,
 } from '../Constants';
 
 const customer = (state = {}, action) => {
@@ -12,6 +17,14 @@ const customer = (state = {}, action) => {
       return { isRegister: false };
     case UPDATE_STATE_CUSTOMER:
       return {};
+    case FIND_CUSTOMER_SUCCESS:
+      state = action.payload;
+      return { ...state, isFind: true };
+    case CHARGE_MONEY_SUCCESS:
+      state = action.payload;
+      return { ...state, isCharge: true, isFind: true };
+    case FIND_CUSTOMER_FAILED:
+      return { isFind: false };
     default:
       return state;
   }
