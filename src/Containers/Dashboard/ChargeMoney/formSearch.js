@@ -22,12 +22,15 @@ const styles = {
     textAlign: 'center',
     marginTop: 17,
   },
+  // paper: {
+  //   backgroundColor: 'bisque',
+  // },
 };
 
 let searchForm = ({ handleSubmit, classes }) => {
   return (
     <Container>
-      <Paper>
+      <Paper className={classes.paper}>
         <form className={classes.form} onSubmit={handleSubmit}>
           <div className={classes.field}>
             <Field

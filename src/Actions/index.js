@@ -10,12 +10,14 @@ import {
   FIND_CUSTOMER_SUCCESS,
   FIND_CUSTOMER_FAILED,
   CHARGE_MONEY_SUCCESS,
+  GET_TRANSACTION,
 } from '../Constants';
 import {
   login,
   addCustomer,
   findCustomerByAccNum,
   chargeMoney,
+  getTransactionLog,
 } from '../Services';
 
 export const loginEmployee = (email, password) => {
@@ -118,6 +120,30 @@ export const chargeMoneyByAccNumber = (accNumber, amount) => {
   function chargeMoneyByAccNumberSuccess(data) {
     return {
       type: CHARGE_MONEY_SUCCESS,
+      payload: data,
+    };
+  }
+};
+
+export const fetchTransaction = (accNumber, page) => {
+  return async (dispatch) => {
+    try {
+      const transactions = await trackPromise(
+        getTransactionLog(accNumber, page),
+      );
+      if (transactions.status === 200) {
+        dispatch(fetchTransactionSuccess(transactions.data));
+      } else {
+        alert('Không tìm thấy số tài khoản.');
+      }
+    } catch (error) {
+      alert('Không tìm thấy số tài khoản.');
+      throw error;
+    }
+  };
+  function fetchTransactionSuccess(data) {
+    return {
+      type: GET_TRANSACTION,
       payload: data,
     };
   }

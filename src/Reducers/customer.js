@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign */
-import _ from 'lodash';
 import {
   CREATE_CUSTOMER_FAILED,
   CREATE_CUSTOMER_SUCCESS,

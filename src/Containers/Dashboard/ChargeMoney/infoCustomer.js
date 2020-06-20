@@ -28,13 +28,17 @@ const styles = {
   row: {
     display: 'flex',
     borderBottom: '1px dotted #ccc',
-    justifyContent: 'space-around',
     marginBottom: 10,
   },
   label: {
-    position: 'relative',
-    right: 10,
     fontWeight: 'bold',
+    width: '50%',
+    textAlign: 'start',
+    marginLeft: 100,
+  },
+  value: {
+    width: '50%',
+    textAlign: 'start',
   },
 };
 
@@ -52,27 +56,29 @@ const InfoCustomer = ({
         <div className={classes.info}>
           <div className={classes.row}>
             <div className={classes.label}>Họ và tên: </div>
-            <div>{customer.fullname}</div>
+            <div className={classes.value}>{customer.fullname}</div>
           </div>
           <div className={classes.row}>
             <div className={classes.label}>Email: </div>
-            <div>{customer.email}</div>
+            <div className={classes.value}>{customer.email}</div>
           </div>
           <div className={classes.row}>
             <div className={classes.label}>SĐT: </div>
-            <div>{customer.phone}</div>
+            <div className={classes.value}>{customer.phone}</div>
           </div>
           <div className={classes.row}>
             <div className={classes.label}>Địa chỉ: </div>
-            <div>{customer.address}</div>
+            <div className={classes.value}>{customer.address}</div>
           </div>
           <div className={classes.row}>
             <div className={classes.label}>STK: </div>
-            <div>{customer.account_number}</div>
+            <div className={classes.value}>{customer.account_number}</div>
           </div>
           <div className={classes.row}>
             <div className={classes.label}>Số dư: </div>
-            <div>{formatter.format(customer.account_balance)}</div>
+            <div className={classes.value}>
+              {formatter.format(customer.account_balance)}
+            </div>
           </div>
         </div>
         <div className={classes.btnCharge}>

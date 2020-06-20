@@ -18,3 +18,12 @@ export const chargeMoney = (accNumber, amount) =>
     account_number: accNumber,
     amount,
   });
+
+export const getTransactionLog = (accNumber, page) =>
+  callApi(
+    urlApi,
+    `employee/history/${accNumber}?page=${page}&&per_page=10`,
+    'GET',
+    authHeader(),
+    null,
+  );
