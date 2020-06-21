@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
+import _ from 'lodash';
 import Filter from './Filter';
 import Search from '../ChargeMoney/formSearch';
 import HeadList from './HeadTable';
@@ -26,6 +27,9 @@ const styles = {
     marginTop: 6,
     display: 'flex',
     justifyContent: 'center',
+  },
+  notFound: {
+    textAlign: 'center',
   },
 };
 
@@ -74,6 +78,9 @@ const TransactionHistory = ({ classes, getTransaction, transaction }) => {
           </TransacionList>
         </Table>
       </TableContainer>
+      {Array.isArray(items) && items.length === 0 ? (
+        <p className={classes.notFound}>Không có giao dịch nào.</p>
+      ) : null}
       <div className={classes.pagination}>
         <Pagination count={Math.ceil(total / 10)} onChange={handleChangePage} />
       </div>

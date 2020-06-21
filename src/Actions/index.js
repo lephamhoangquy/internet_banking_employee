@@ -10,7 +10,8 @@ import {
   FIND_CUSTOMER_SUCCESS,
   FIND_CUSTOMER_FAILED,
   CHARGE_MONEY_SUCCESS,
-  GET_TRANSACTION,
+  GET_TRANSACTION_SUCCESS,
+  GET_TRANSACTION_FAILED,
 } from '../Constants';
 import {
   login,
@@ -83,12 +84,12 @@ export const findCustomerByAcc = (accNumber) => {
       if (customer.status === 200) {
         dispatch(findCustomerByAccSuccess(customer.data.customer));
       } else {
-        dispatch(findCustomerByAccFailed());
         alert('Không tìm thấy thông tin tài khoản');
+        dispatch(findCustomerByAccFailed());
       }
     } catch (error) {
-      dispatch(findCustomerByAccFailed());
       alert('Không tìm thấy thông tin tài khoản');
+      dispatch(findCustomerByAccFailed());
       throw error;
     }
   };
@@ -135,16 +136,23 @@ export const fetchTransaction = (accNumber, page) => {
         dispatch(fetchTransactionSuccess(transactions.data));
       } else {
         alert('Không tìm thấy số tài khoản.');
+        dispatch(fetchTransactionFailed());
       }
     } catch (error) {
       alert('Không tìm thấy số tài khoản.');
+      dispatch(fetchTransactionFailed());
       throw error;
     }
   };
   function fetchTransactionSuccess(data) {
     return {
-      type: GET_TRANSACTION,
+      type: GET_TRANSACTION_SUCCESS,
       payload: data,
+    };
+  }
+  function fetchTransactionFailed() {
+    return {
+      type: GET_TRANSACTION_FAILED,
     };
   }
 };
