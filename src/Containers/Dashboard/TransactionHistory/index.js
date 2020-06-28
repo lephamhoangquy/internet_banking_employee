@@ -12,6 +12,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
 import { reset } from 'redux-form';
 import _ from 'lodash';
+import ReceiptIcon from '@material-ui/icons/Receipt';
 import Filter from './Filter';
 import Search from '../ChargeMoney/formSearch';
 import HeadList from './HeadTable';
@@ -32,6 +33,13 @@ const styles = {
   notFound: {
     textAlign: 'center',
   },
+  title: {
+    display: 'flex',
+    justifyContent: 'center',
+    '& svg': {
+      margin: '15px 10px',
+    },
+  },
 };
 
 const TransactionHistory = ({
@@ -46,6 +54,7 @@ const TransactionHistory = ({
   const onSearch = (values) => {
     const { account_number } = values;
     setAccNumber(account_number);
+    localStorage.setItem('accNumberSearch', account_number);
     getTransaction(account_number, page);
   };
 
@@ -72,12 +81,21 @@ const TransactionHistory = ({
     }
   }, [page]);
 
+  const handleReset = () => {
+    getTransaction(accNumber, page);
+    resetFilter();
+  };
+
   const { total, items } = transaction;
 
   return (
     <div>
+      <div className={classes.title}>
+        <ReceiptIcon fontSize="large" />
+        <h2>Lịch sử giao dịch</h2>
+      </div>
       <Search onSubmit={onSearch} />
-      <Filter onSubmit={onFilter} />
+      <Filter handleReset={handleReset} onSubmit={onFilter} />
       <TableContainer className={classes.table} component={Paper}>
         <Table>
           <HeadList />

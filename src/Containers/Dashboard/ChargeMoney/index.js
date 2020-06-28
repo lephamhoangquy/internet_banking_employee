@@ -4,11 +4,24 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import LocalAtmIcon from '@material-ui/icons/LocalAtm';
+import { withStyles } from '@material-ui/core/styles';
+import compose from 'recompose/compose';
 import Search from './formSearch';
 import InfoCustomer from './infoCustomer';
 import { findCustomerByAcc, chargeMoneyByAccNumber } from '../../../Actions';
 
-const Charge = ({ findCustomer, customer, chargeMoney }) => {
+const styles = {
+  title: {
+    display: 'flex',
+    justifyContent: 'center',
+    '& svg': {
+      margin: '15px 10px',
+    },
+  },
+};
+
+const Charge = ({ findCustomer, customer, chargeMoney, classes }) => {
   const [isOpenCharge, setOpenCharge] = useState(false);
   const [accNumber, setAccNumber] = useState(null);
 
@@ -26,6 +39,10 @@ const Charge = ({ findCustomer, customer, chargeMoney }) => {
 
   return (
     <div>
+      <div className={classes.title}>
+        <LocalAtmIcon fontSize="large" />
+        <h2>Nạp tiền vào tài khoản</h2>
+      </div>
       <Search isOpenCharge={isOpenCharge} onSubmit={onSearch} />
       {customer.isFind && (
         <InfoCustomer
@@ -58,6 +75,10 @@ Charge.propTypes = {
   findCustomer: PropTypes.func,
   customer: PropTypes.instanceOf(Object),
   chargeMoney: PropTypes.func,
+  classes: PropTypes.instanceOf(Object),
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Charge);
+export default compose(
+  withStyles(styles),
+  connect(mapStateToProps, mapDispatchToProps),
+)(Charge);

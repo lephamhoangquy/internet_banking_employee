@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-shadow */
 /* eslint-disable camelcase */
 import React from 'react';
@@ -21,7 +22,7 @@ const styles = {
     },
   },
 };
-const TransactionItem = ({ transaction, index, accNumber }) => {
+const TransactionItem = ({ transaction, index }) => {
   const {
     updated_at,
     sender_account_number,
@@ -29,6 +30,8 @@ const TransactionItem = ({ transaction, index, accNumber }) => {
     transaction_type,
     amount,
   } = transaction;
+
+  const accNumber = localStorage.getItem('accNumberSearch');
 
   const getTransactionType = (transactionType) => {
     switch (transactionType) {
@@ -82,7 +85,6 @@ const TransactionItem = ({ transaction, index, accNumber }) => {
 TransactionItem.propTypes = {
   index: PropTypes.number.isRequired,
   transaction: PropTypes.instanceOf(Object).isRequired,
-  accNumber: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(TransactionItem);

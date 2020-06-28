@@ -29,7 +29,7 @@ const styles = {
   },
 };
 
-let FilterForm = ({ classes, handleSubmit }) => {
+let FilterForm = ({ classes, handleSubmit, handleReset }) => {
   return (
     <Container className={classes.filter}>
       <Paper className={classes.paper}>
@@ -82,7 +82,7 @@ let FilterForm = ({ classes, handleSubmit }) => {
             >
               Áp dụng
             </Button>
-            <Button color="primary">
+            <Button onClick={handleReset} color="primary">
               <RotateLeftIcon />
             </Button>
           </div>
@@ -99,6 +99,7 @@ FilterForm = reduxForm({
 FilterForm.propTypes = {
   classes: PropTypes.instanceOf(Object).isRequired,
   handleSubmit: PropTypes.func,
+  handleReset: PropTypes.func,
 };
 
 export default withStyles(styles)(FilterForm);
