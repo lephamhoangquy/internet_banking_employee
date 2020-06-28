@@ -22,9 +22,6 @@ const styles = {
     textAlign: 'center',
     marginTop: 17,
   },
-  // paper: {
-  //   backgroundColor: 'bisque',
-  // },
 };
 
 let searchForm = ({ handleSubmit, classes }) => {
@@ -43,7 +40,12 @@ let searchForm = ({ handleSubmit, classes }) => {
             />
           </div>
           <div className={classes.btn}>
-            <Button type="submit" variant="contained" color="primary">
+            <Button
+              size="small"
+              type="submit"
+              variant="contained"
+              color="primary"
+            >
               Tìm kiếm
             </Button>
           </div>

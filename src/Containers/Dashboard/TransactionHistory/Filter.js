@@ -5,6 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import Checkbox from '../../../Components/CustomField/Checkbox';
 
 const styles = {
@@ -14,7 +16,7 @@ const styles = {
     marginBottom: 20,
   },
   btn: {
-    marginTop: 25,
+    marginTop: 7,
   },
   filter: {
     marginTop: 14,
@@ -28,9 +30,6 @@ const styles = {
 };
 
 let FilterForm = ({ classes, handleSubmit }) => {
-  // const handleChange = (e) => {
-  //   console.log('e.target: ', e.target);
-  // };
   return (
     <Container className={classes.filter}>
       <Paper className={classes.paper}>
@@ -40,11 +39,11 @@ let FilterForm = ({ classes, handleSubmit }) => {
           </div>
           <div className={classes.field}>
             <Field
-              name="isReceive"
+              name="isReceiver"
               component={Checkbox}
               label="Nhận tiền"
               color="primary"
-              // onChange={handleChange}
+              checked
             />
           </div>
           <div className={classes.field}>
@@ -53,6 +52,7 @@ let FilterForm = ({ classes, handleSubmit }) => {
               component={Checkbox}
               label="Chuyển tiền"
               color="secondary"
+              checked
             />
           </div>
           <div className={classes.field}>
@@ -61,6 +61,7 @@ let FilterForm = ({ classes, handleSubmit }) => {
               component={Checkbox}
               label="Nhắc nợ"
               color="primary"
+              checked
             />
           </div>
           <div className={classes.field}>
@@ -69,11 +70,22 @@ let FilterForm = ({ classes, handleSubmit }) => {
               component={Checkbox}
               label="Bị Nhắc nợ"
               color="secondary"
+              checked
             />
           </div>
-          {/* <div>
-            <button type="submit">xxxx</button>
-          </div> */}
+          <div className={classes.btn}>
+            <Button
+              size="small"
+              type="submit"
+              variant="contained"
+              color="primary"
+            >
+              Áp dụng
+            </Button>
+            <Button color="primary">
+              <RotateLeftIcon />
+            </Button>
+          </div>
         </form>
       </Paper>
     </Container>

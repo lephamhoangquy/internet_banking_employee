@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
+import { reset } from 'redux-form';
 import _ from 'lodash';
 import Filter from './Filter';
 import Search from '../ChargeMoney/formSearch';
@@ -33,9 +34,15 @@ const styles = {
   },
 };
 
-const TransactionHistory = ({ classes, getTransaction, transaction }) => {
+const TransactionHistory = ({
+  classes,
+  getTransaction,
+  transaction,
+  resetFilter,
+}) => {
   const [accNumber, setAccNumber] = useState(null);
   const [page, setPage] = useState(1);
+
   const onSearch = (values) => {
     const { account_number } = values;
     setAccNumber(account_number);
@@ -43,7 +50,16 @@ const TransactionHistory = ({ classes, getTransaction, transaction }) => {
   };
 
   const onFilter = (values) => {
-    console.log('values: ', values);
+    const isReceiver = _.get(values, 'isReceiver', false);
+    const isSender = _.get(values, 'isSender', false);
+    const isRemind = _.get(values, 'isRemind', false);
+    const isBeRemind = _.get(values, 'isBeRemind', false);
+    if (!accNumber) {
+      alert('Vui lòng điền số tài khoản');
+      resetFilter();
+      return;
+    }
+    getTransaction(accNumber, page, isReceiver, isSender, isRemind, isBeRemind);
   };
 
   const handleChangePage = (event, value) => {
@@ -78,9 +94,11 @@ const TransactionHistory = ({ classes, getTransaction, transaction }) => {
           </TransacionList>
         </Table>
       </TableContainer>
-      {Array.isArray(items) && items.length === 0 ? (
-        <p className={classes.notFound}>Không có giao dịch nào.</p>
-      ) : null}
+      {(!Array.isArray(items) || items.length === 0) && (
+        <div className={classes.notFound}>
+          <p>Không có giao dịch nào.</p>
+        </div>
+      )}
       <div className={classes.pagination}>
         <Pagination count={Math.ceil(total / 10)} onChange={handleChangePage} />
       </div>
@@ -94,8 +112,27 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getTransaction: (accNumber, page) => {
-      dispatch(fetchTransaction(accNumber, page));
+    getTransaction: (
+      accNumber,
+      page,
+      isReceiver,
+      isSender,
+      isRemind,
+      isBeRemind,
+    ) => {
+      dispatch(
+        fetchTransaction(
+          accNumber,
+          page,
+          isReceiver,
+          isSender,
+          isRemind,
+          isBeRemind,
+        ),
+      );
+    },
+    resetFilter: () => {
+      dispatch(reset('filterTransaction'));
     },
   };
 };
@@ -104,6 +141,7 @@ TransactionHistory.propTypes = {
   classes: PropTypes.instanceOf(Object),
   getTransaction: PropTypes.func,
   transaction: PropTypes.instanceOf(Object),
+  resetFilter: PropTypes.func.isRequired,
 };
 
 export default compose(

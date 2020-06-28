@@ -19,11 +19,27 @@ export const chargeMoney = (accNumber, amount) =>
     amount,
   });
 
-export const getTransactionLog = (accNumber, page) =>
-  callApi(
+export const getTransactionLog = (
+  accNumber,
+  page,
+  isReceiver,
+  isSender,
+  isRemind,
+  isBeRemind,
+) => {
+  const query = {
+    isReceiver,
+    isSender,
+    isRemind,
+    isBeRemind,
+  };
+  return callApi(
     urlApi,
-    `employee/history/${accNumber}?page=${page}&&per_page=10`,
+    `employee/history/${accNumber}?q=${JSON.stringify(
+      query,
+    )}&page=${page}&per_page=10`,
     'GET',
     authHeader(),
     null,
   );
+};

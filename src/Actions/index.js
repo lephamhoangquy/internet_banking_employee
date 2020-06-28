@@ -126,20 +126,34 @@ export const chargeMoneyByAccNumber = (accNumber, amount) => {
   }
 };
 
-export const fetchTransaction = (accNumber, page) => {
+export const fetchTransaction = (
+  accNumber,
+  page,
+  isReceiver,
+  isSender,
+  isRemind,
+  isBeRemind,
+) => {
   return async (dispatch) => {
     try {
       const transactions = await trackPromise(
-        getTransactionLog(accNumber, page),
+        getTransactionLog(
+          accNumber,
+          page,
+          isReceiver,
+          isSender,
+          isRemind,
+          isBeRemind,
+        ),
       );
       if (transactions.status === 200) {
         dispatch(fetchTransactionSuccess(transactions.data));
       } else {
-        alert('Không tìm thấy số tài khoản.');
+        alert('Không tìm thấy.');
         dispatch(fetchTransactionFailed());
       }
     } catch (error) {
-      alert('Không tìm thấy số tài khoản.');
+      alert('Không tìm thấy.');
       dispatch(fetchTransactionFailed());
       throw error;
     }
