@@ -16,6 +16,7 @@ import PropTypes from 'prop-types';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Alert from '@material-ui/lab/Alert';
 import _ from 'lodash';
+import Recaptcha from 'react-recaptcha';
 import TextField from '../CustomField/TextField';
 import CopyRight from '../CopyRight';
 
@@ -44,8 +45,11 @@ const useStyles = makeStyles((theme) => ({
 
 let LoginForm = (props) => {
   const classes = useStyles();
-  const { handleSubmit, user } = props;
+  const { handleSubmit, user, setVerify } = props;
   const isLogin = _.get(user, 'isLogin', null);
+  const verifyRecaptcha = () => {
+    return setVerify(true);
+  };
   return (
     <Container component="main" maxWidth="xs">
       {/* Check login failure => alert  */}
@@ -86,11 +90,14 @@ let LoginForm = (props) => {
               />
             </Grid>
           </Grid>
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-            className={classes.remember}
-          />
+          <div className={classes.remember}>
+            <Recaptcha
+              sitekey="6LfQ-sAZAAAAAHwunMSGx7E4NmX2THX1r_uzlgqn"
+              render="explicit"
+              verifyCallback={verifyRecaptcha}
+            />
+          </div>
+
           <Button
             type="submit"
             fullWidth
@@ -115,6 +122,7 @@ LoginForm = reduxForm({
 
 LoginForm.propTypes = {
   handleSubmit: PropTypes.func,
+  setVerify: PropTypes.func,
   user: PropTypes.instanceOf(Object).isRequired,
 };
 

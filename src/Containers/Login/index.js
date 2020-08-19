@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import LoginForm from '../../Components/LoginForm';
 import { loginEmployee } from '../../Actions';
 
 const Login = ({ login, user }) => {
+  const [isVerify, setVerify] = useState(false);
+
   const submit = (values) => {
-    const { email, password } = values;
-    login(email, password);
+    if (isVerify) {
+      const { email, password } = values;
+      login(email, password);
+    } else {
+      alert('Vui lòng chọn Captcha. ');
+    }
   };
   return (
     <div>
-      <LoginForm user={user} onSubmit={submit} />
+      <LoginForm setVerify={setVerify} user={user} onSubmit={submit} />
     </div>
   );
 };
